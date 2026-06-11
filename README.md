@@ -43,6 +43,27 @@ A typical training workflow is:
 4. Use the learned thresholds to convert latent scores into ordinal operational risk levels.
 5. Evaluate whether higher predicted risk classes correspond to increasing observed operational consequences.
 
+## Results and Visualizations
+
+The proposed approach directly optimizes ordinal consistency. Below are visualizations of the learned latent ordinal centers and the monotonic evaluation spline fits comparing the CCLLT objective and a baseline RankNet formulation on the prediction of operational wildfire consequences.
+
+### Latent Ordinal Centers Evolution
+
+![Latent Ordinal Centers Evolution](images/mu.png)
+*Evolution of the latent ordinal centers (`mu`) per class during training. The separation of these centers illustrates the model's capacity to naturally map increasing latent severity to monotonically increasing operational risk levels.*
+
+### Monotonic Evaluation: CCLLT vs. RankNet
+
+The performance is evaluated using a monotonic spline framework, measuring the degree to which increasing predicted risk classes correspond to increasing operational burden.
+
+**CCLLT Loss Fit (Department 25)**
+![CCLLT Spline Fit](images/scoring_fit_-_netmlp_ccllt_departement_25.png)
+*Monotonic evaluation spline fit for the CCLLT objective, showing strong alignment between predicted risk classes and expected operational consequences.*
+
+**RankNet Loss Fit (Department 25)**
+![RankNet Spline Fit](images/scoring_fit_-_netmlp_ranknet_departement_25.png)
+*Monotonic evaluation spline fit for the baseline RankNet formulation, showing differences in risk transition points and coverage.*
+
 ## Minimal Usage Sketch
 
 ```python
@@ -100,15 +121,6 @@ Core dependency:
 
 ```text
 torch
-```
-
-Environment-specific dependencies imported by `loss.py` include:
-
-```text
-forecasting_models.pytorch.tools_2
-forecasting_models.pytorch.loss_utils
-forecasting_models.pytorch.classification_loss
-forecasting_models.pytorch.distribution_loss
 ```
 
 ## Notes
